@@ -1,6 +1,6 @@
 from sqlmodel import Session, select
 from models.user import User
-from auth_utils import get_password_hash, verify_password, create_access_token
+from auth_utils import get_password_hash, verify_password, create_access_token, blacklist_token
 
 
 def register_user(session: Session, username: str, email: str, password: str) -> User:
@@ -21,3 +21,7 @@ def authenticate_user(session: Session, username: str, password: str) -> str:
     if not user or not verify_password(password, user.hashed_password):
         raise ValueError("Incorrect username or password")
     return create_access_token(data={"sub": user.username})
+
+
+def logout_user(token: str):
+    blacklist_token(token)
