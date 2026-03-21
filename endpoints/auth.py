@@ -1,0 +1,36 @@
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlmodel import Session
+from pydantic import BaseModel
+from database import get_session
+from services import auth_service
+
+router = APIRouter(prefix="/auth", tags=["Authentication"])
+
+
+class UserRegister(BaseModel):
+    username: str
+    email: str
+    password: str
+
+
+@router.post("/register")
+def register(user_data: UserRegister, session: Session = Depends(get_session)):
+    try:
+        user = auth_service.register_user(session, user_data.username, user_data.email, user_data.password)
+        return {"message": "User registered successfully", "user_id": user.id}
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+
+@router.post("/login")
+def login(form_data: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):
+    try:
+        token = auth_service.authenticate_user(session, form_data.username, form_data.password)
+        return {"access_token": token, "token_type": "bearer"}
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
