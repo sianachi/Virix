@@ -20,8 +20,14 @@ def authenticate_user(session: Session, username: str, password: str) -> str:
     user = session.exec(select(User).where(User.username == username)).first()
     if not user or not verify_password(password, user.hashed_password):
         raise ValueError("Incorrect username or password")
+    user.is_online = True
+    session.add(user)
+    session.commit()
     return create_access_token(data={"sub": user.username})
 
 
-def logout_user(token: str):
+def logout_user(token: str, session: Session, user: User):
     blacklist_token(token)
+    user.is_online = False
+    session.add(user)
+    session.commit()
