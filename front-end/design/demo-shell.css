@@ -1,0 +1,157 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "DM Sans", sans-serif;
+    background: #faf8ff;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* ── Nav bar ── */
+#demo-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid hsl(260, 20%, 93%);
+}
+
+/* ── Brand ── */
+.demo-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.demo-brand svg {
+    width: 26px;
+    height: 26px;
+}
+
+.demo-brand-name {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #1c1435;
+    letter-spacing: -0.01em;
+}
+
+.demo-brand-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: rgba(124, 58, 237, 0.08);
+    color: #7c3aed;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+/* ── Separator ── */
+.demo-sep {
+    width: 1px;
+    height: 22px;
+    background: hsl(260, 20%, 90%);
+    margin: 0 8px;
+    flex-shrink: 0;
+}
+
+/* ── Tabs ── */
+.demo-tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.demo-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #7c7494;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.demo-tab:hover {
+    background: hsl(260, 30%, 97%);
+    color: #5b5675;
+}
+
+.demo-tab[aria-selected="true"] {
+    background: rgba(124, 58, 237, 0.1);
+    color: #7c3aed;
+    font-weight: 600;
+}
+
+.demo-tab svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.demo-tab:focus-visible {
+    outline: 2px solid rgba(124, 58, 237, 0.4);
+    outline-offset: 2px;
+}
+
+/* ── Spacer ── */
+.demo-spacer {
+    flex: 1;
+}
+
+/* ── Hint text ── */
+.demo-hint {
+    font-size: 12px;
+    color: #a09bb5;
+    flex-shrink: 0;
+}
+
+/* ── iframe container ── */
+#demo-frame-container {
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+}
+
+#demo-frame-container.transitioning {
+    opacity: 0.4;
+    transition: opacity 0.1s ease;
+}
+
+#demo-frame-container:not(.transitioning) {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+#demo-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #fff;
+}
