@@ -1,5 +1,5 @@
 from sqlmodel import Session, select
-from models.user import User
+from models.user import User, UserStatus
 from auth_utils import get_password_hash, verify_password, create_access_token, blacklist_token
 
 
@@ -20,7 +20,7 @@ def authenticate_user(session: Session, username: str, password: str) -> str:
     user = session.exec(select(User).where(User.username == username)).first()
     if not user or not verify_password(password, user.hashed_password):
         raise ValueError("Incorrect username or password")
-    user.is_online = True
+    user.status = UserStatus.online
     session.add(user)
     session.commit()
     return create_access_token(data={"sub": user.username})
@@ -28,6 +28,6 @@ def authenticate_user(session: Session, username: str, password: str) -> str:
 
 def logout_user(token: str, session: Session, user: User):
     blacklist_token(token)
-    user.is_online = False
+    user.status = UserStatus.offline
     session.add(user)
     session.commit()

@@ -13,8 +13,8 @@
 ## 2. User Management (`/users`)
 | Method | Endpoint | Description | Response |
 | :--- | :--- | :--- | :--- |
-| GET | `/users/` | List all users | `[ { "id", "username", "is_online" } ]` |
-| GET | `/users/{user_id}` | Get user details | `{ "id", "username", "is_online" }` |
+| GET | `/users/` | List all users | `[ { "id", "username", "status", "emoji", "color", "activity" } ]` |
+| GET | `/users/{user_id}` | Get user details | `{ "id", "username", "status", "emoji", "color", "activity" }` |
 
 ## 3. Chat Rooms (`/chat`)
 | Method | Endpoint | Description | Request Body |

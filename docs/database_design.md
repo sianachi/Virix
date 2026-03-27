@@ -17,7 +17,10 @@ erDiagram
         string username
         string email
         string hashed_password
-        boolean is_online
+        enum status
+        string emoji
+        string color
+        string activity
         datetime created_at
     }
     ROOMS {
@@ -61,7 +64,10 @@ Stores user identity and authentication details.
 | `username` | VARCHAR | Unique, Not Null | Public handle |
 | `email` | VARCHAR | Unique, Not Null | User email |
 | `hashed_password`| VARCHAR | Not Null | Argon2/BCrypt hash |
-| `is_online` | BOOLEAN | Default False | Real-time status |
+| `status` | ENUM | Default 'offline' | Presence: online/idle/dnd/offline |
+| `emoji` | VARCHAR | Nullable | Profile emoji |
+| `color` | VARCHAR | Nullable | Profile color |
+| `activity` | VARCHAR | Nullable | Free-text activity status |
 | `created_at` | DATETIME | Default Now | Account age |
 
 ### 2. `rooms`
