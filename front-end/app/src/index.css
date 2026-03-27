@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+
+  --color-primary: #7C3AED;
+  --color-primary-light: #8B5CF6;
+  --color-primary-dark: #6D28D9;
+  --color-primary-foreground: #FFFFFF;
+
+  --color-secondary: hsl(250, 20%, 96%);
+  --color-secondary-foreground: #1c1435;
+
+  --color-muted: hsl(250, 15%, 95%);
+  --color-muted-foreground: #7C7494;
+
+  --color-accent: #7C3AED;
+  --color-accent-foreground: #FFFFFF;
+
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+
+  --color-foreground: #1c1435;
+  --color-background: #FFFFFF;
+  --color-surface: hsl(258, 30%, 98%);
+  --color-surface-alt: hsl(260, 30%, 97%);
+
+  --color-border: hsl(250, 15%, 88%);
+  --color-input: hsl(250, 15%, 88%);
+  --color-ring: #7C3AED;
+
+  --color-online: #22C55E;
+  --color-idle: #F59E0B;
+  --color-dnd: #EF4444;
+  --color-offline: #D1D5DB;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-fade-in-up: fade-in-up 0.55s ease-out backwards;
+  --animate-pop-in: pop-in 0.6s ease-out backwards;
+  --animate-typing-dot: typing-dot 1.4s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.85); }
+  60% { transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes typing-dot {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-foreground);
+  background: var(--color-background);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
