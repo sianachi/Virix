@@ -1,5 +1,5 @@
-import { useAppStore } from '../store/app-store'
-import { messages, typingUsers } from '../data/messages'
+import { useAppStore } from '../../store/app-store'
+import { messages, typingUsers } from '../../data/messages'
 import {
   MessageSquare,
   Phone,
@@ -9,11 +9,11 @@ import {
   Search,
   type LucideIcon,
 } from 'lucide-react'
-import Separator from './Separator'
-import Tooltip from './Tooltip'
-import Message from './Message'
-import MessageInput from './MessageInput'
-import TypingIndicator from './TypingIndicator'
+import Separator from '../ui/Separator'
+import Tooltip from '../ui/Tooltip'
+import Message from '../chat/Message'
+import MessageInput from '../chat/MessageInput'
+import TypingIndicator from '../chat/TypingIndicator'
 
 interface ToolbarAction {
   icon: LucideIcon

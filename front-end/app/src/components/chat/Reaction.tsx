@@ -1,5 +1,5 @@
-import { cn } from '../lib/cn'
-import Emoji from './Emoji'
+import { cn } from '../../lib/cn'
+import Emoji from '../ui/Emoji'
 
 interface ReactionProps {
   emoji: string

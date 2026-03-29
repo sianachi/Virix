@@ -1,6 +1,6 @@
-import { cn } from '../lib/cn'
-import type { AvatarSize } from '../types/ui'
-import type { StatusType } from '../types/data'
+import { cn } from '../../lib/cn'
+import type { AvatarSize } from '../../types/ui'
+import type { StatusType } from '../../types/data'
 import Emoji from './Emoji'
 
 interface AvatarProps {

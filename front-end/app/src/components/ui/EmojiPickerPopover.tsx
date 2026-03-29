@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { EmojiPicker, type Emoji } from 'frimousse'
-import { cn } from '../lib/cn'
+import { cn } from '../../lib/cn'
 
 interface EmojiPickerPopoverProps {
   onEmojiSelect?: (emoji: string) => void

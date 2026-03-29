@@ -1,6 +1,6 @@
-import { cn } from '../lib/cn'
+import { cn } from '../../lib/cn'
 import { Smile, ThumbsUp, MessageSquare, MoreHorizontal, type LucideIcon } from 'lucide-react'
-import Tooltip from './Tooltip'
+import Tooltip from '../ui/Tooltip'
 
 interface Action {
   icon: LucideIcon

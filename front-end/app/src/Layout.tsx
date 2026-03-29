@@ -1,8 +1,8 @@
-import { ToastProvider } from './components/Toast'
-import ServerSidebar from './components/ServerSidebar'
-import RoomsSidebar from './components/RoomsSidebar'
-import ChatArea from './components/ChatArea'
-import MembersSidebar from './components/MembersSidebar'
+import { ToastProvider } from './components/ui/Toast'
+import ServerSidebar from './components/layout/ServerSidebar'
+import RoomsSidebar from './components/layout/RoomsSidebar'
+import ChatArea from './components/layout/ChatArea'
+import MembersSidebar from './components/layout/MembersSidebar'
 
 export default function Layout() {
   return (

@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { cn } from '../lib/cn'
+import { cn } from '../../lib/cn'
 import { PlusCircle, Gift, Paperclip, Smile } from 'lucide-react'
-import Tooltip from './Tooltip'
-import EmojiPickerPopover from './EmojiPickerPopover'
+import Tooltip from '../ui/Tooltip'
+import EmojiPickerPopover from '../ui/EmojiPickerPopover'
 
 interface MessageInputProps {
   roomName?: string

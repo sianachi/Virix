@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import Avatar from './Avatar'
+import Avatar from '../ui/Avatar'
 import MessageActions from './MessageActions'
 import Reaction from './Reaction'
-import type { ReactionData } from '../types/data'
+import type { ReactionData } from '../../types/data'
 
 interface MessageProps {
   author: string

@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, createContext, useContext, type ReactNode } from 'react'
-import { cn } from '../lib/cn'
+import { cn } from '../../lib/cn'
 import { X } from 'lucide-react'
-import type { ToastVariant } from '../types/ui'
+import type { ToastVariant } from '../../types/ui'
 
 type AddToastFn = (message: string, variant?: ToastVariant) => void
 

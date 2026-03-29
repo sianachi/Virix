@@ -1,5 +1,5 @@
-import Avatar from './Avatar'
-import type { TypingUser } from '../types/data'
+import Avatar from '../ui/Avatar'
+import type { TypingUser } from '../../types/data'
 
 interface TypingIndicatorProps {
   users?: TypingUser[]

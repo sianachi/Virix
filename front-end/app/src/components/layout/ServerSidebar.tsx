@@ -1,10 +1,10 @@
-import { cn } from '../lib/cn'
-import { useAppStore } from '../store/app-store'
-import { servers } from '../data/servers'
-import Logo from './Logo'
-import Tooltip from './Tooltip'
-import Separator from './Separator'
-import Emoji from './Emoji'
+import { cn } from '../../lib/cn'
+import { useAppStore } from '../../store/app-store'
+import { servers } from '../../data/servers'
+import Logo from '../ui/Logo'
+import Tooltip from '../ui/Tooltip'
+import Separator from '../ui/Separator'
+import Emoji from '../ui/Emoji'
 
 export default function ServerSidebar() {
   const activeServer = useAppStore((s) => s.activeServer)

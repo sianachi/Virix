@@ -1,10 +1,10 @@
-import { cn } from '../lib/cn'
-import { useAppStore } from '../store/app-store'
-import { members } from '../data/members'
+import { cn } from '../../lib/cn'
+import { useUIStore } from '../../store/ui-store'
+import { members } from '../../data/members'
 import { ChevronRight } from 'lucide-react'
-import Avatar from './Avatar'
-import Badge from './Badge'
-import type { Member } from '../types/data'
+import Avatar from '../ui/Avatar'
+import Badge from '../ui/Badge'
+import type { Member } from '../../types/data'
 
 interface MemberSectionProps {
   title: string
@@ -19,8 +19,8 @@ interface MemberRowProps {
 }
 
 export default function MembersSidebar() {
-  const collapsed = useAppStore((s) => s.membersCollapsed)
-  const toggleCollapsed = useAppStore((s) => s.toggleMembersCollapsed)
+  const collapsed = useUIStore((s) => s.membersCollapsed)
+  const toggleCollapsed = useUIStore((s) => s.toggleMembersCollapsed)
 
   const online = members.filter((m) => m.status !== 'offline')
   const offline = members.filter((m) => m.status === 'offline')

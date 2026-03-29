@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, type ReactNode } from 'react'
-import { cn } from '../lib/cn'
+import { cn } from '../../lib/cn'
 
 interface DropdownMenuProps {
   trigger: ReactNode

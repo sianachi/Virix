@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react'
-import { cn } from '../lib/cn'
-import type { SeparatorOrientation } from '../types/ui'
+import { cn } from '../../lib/cn'
+import type { SeparatorOrientation } from '../../types/ui'
 
 interface SeparatorProps extends HTMLAttributes<HTMLDivElement> {
   orientation?: SeparatorOrientation

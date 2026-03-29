@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
-import { cn } from '../lib/cn'
-import type { BadgeVariant } from '../types/ui'
+import { cn } from '../../lib/cn'
+import type { BadgeVariant } from '../../types/ui'
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant

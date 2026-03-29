@@ -1,12 +1,21 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+import os
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import Session
 import re
 from pydantic import BaseModel, field_validator
+from dotenv import load_dotenv
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from database import get_session
 from auth_utils import oauth2_scheme, get_current_user
 from models.user import User
 from services import auth_service
+
+load_dotenv()
+
+limiter = Limiter(key_func=get_remote_address)
+RATE_LIMIT_AUTH = os.getenv("RATE_LIMIT_AUTH", "5/minute")
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
@@ -32,7 +41,8 @@ class UserRegister(BaseModel):
 
 
 @router.post("/register")
-def register(user_data: UserRegister, session: Session = Depends(get_session)):
+@limiter.limit(RATE_LIMIT_AUTH)
+def register(request: Request, user_data: UserRegister, session: Session = Depends(get_session)):
     try:
         user = auth_service.register_user(session, user_data.username, user_data.email, user_data.password)
         return {"message": "User registered successfully", "user_id": user.id}
@@ -41,7 +51,8 @@ def register(user_data: UserRegister, session: Session = Depends(get_session)):
 
 
 @router.post("/login")
-def login(form_data: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):
+@limiter.limit(RATE_LIMIT_AUTH)
+def login(request: Request, form_data: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):
     try:
         token = auth_service.authenticate_user(session, form_data.username, form_data.password)
         return {"access_token": token, "token_type": "bearer"}

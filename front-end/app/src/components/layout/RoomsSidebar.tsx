@@ -1,17 +1,18 @@
-import { cn } from '../lib/cn'
-import { useAppStore } from '../store/app-store'
-import { rooms } from '../data/rooms'
+import { cn } from '../../lib/cn'
+import { useAppStore } from '../../store/app-store'
+import { useUIStore } from '../../store/ui-store'
+import { rooms } from '../../data/rooms'
 import { ChevronDown, ChevronLeft, MessageSquare, Mic } from 'lucide-react'
-import Avatar from './Avatar'
-import Badge from './Badge'
-import Emoji from './Emoji'
+import Avatar from '../ui/Avatar'
+import Badge from '../ui/Badge'
+import Emoji from '../ui/Emoji'
 import UserPanel from './UserPanel'
 
 export default function RoomsSidebar() {
   const activeRoom = useAppStore((s) => s.activeRoom)
   const setActiveRoom = useAppStore((s) => s.setActiveRoom)
-  const collapsed = useAppStore((s) => s.roomsCollapsed)
-  const toggleCollapsed = useAppStore((s) => s.toggleRoomsCollapsed)
+  const collapsed = useUIStore((s) => s.roomsCollapsed)
+  const toggleCollapsed = useUIStore((s) => s.toggleRoomsCollapsed)
 
   if (collapsed) {
     return (

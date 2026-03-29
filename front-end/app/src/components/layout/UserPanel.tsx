@@ -1,6 +1,6 @@
 import { Mic, Headphones, Settings } from 'lucide-react'
-import Avatar from './Avatar'
-import Tooltip from './Tooltip'
+import Avatar from '../ui/Avatar'
+import Tooltip from '../ui/Tooltip'
 
 export default function UserPanel() {
   return (
