@@ -35,14 +35,19 @@ Each feature groups backend and frontend work together so a feature can be built
 - [x] `GET /users/me` — return the currently authenticated user
 
 **Frontend**
-- [ ] Build LandingPage at `/` (marketing page with CTA)
-- [ ] Build LoginPage with inline form validation (email format, password length)
-- [ ] Build RegisterPage with validation (username availability, password strength, confirm match)
-- [ ] Build AuthGuard wrapper — redirect unauthenticated users to `/login`
-- [ ] Create auth-store (user, token, login/logout actions, token persistence in localStorage)
-- [ ] Connect login/register forms to backend auth endpoints
-- [ ] Add full-screen loading state for initial auth check
-- [ ] Handle auth errors — invalid credentials toast, session expired redirect
+- [x] Build LandingPage at `/` (marketing page with CTA)
+- [x] Build LoginPage with inline form validation (email format, password length)
+- [x] Build RegisterPage with validation (username availability, password strength, confirm match)
+- [x] Build ForgotPasswordPage — email input, success confirmation
+- [x] Build ResetPasswordPage — new password + confirm, token-based reset
+- [x] Build ProtectedRoute wrapper — redirect unauthenticated users to `/login`
+- [x] Create auth-store (user, token, login/logout actions, token persistence in localStorage)
+- [x] Connect login/register forms to backend auth endpoints
+- [x] Add full-screen loading state for initial auth check
+- [x] Handle auth errors — invalid credentials toast, session expired redirect
+- [x] Add form validation with Zod schemas (`lib/validations.ts`) + React Hook Form
+- [x] Create reusable ChattyTextInput component (label + input + per-field error)
+- [x] Create PasswordInput component with visibility toggle (eye icon)
 
 ---
 

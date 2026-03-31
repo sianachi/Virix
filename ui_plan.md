@@ -66,11 +66,12 @@ The **Main Content** area (Zone C) switches between distinct view modes:
 
 | # | Screen | Route |
 |---|--------|-------|
-| U1 | Landing / Marketing Page | `/` |
-| U2 | Login | `/login` |
-| U3 | Register | `/register` |
-| U4 | Forgot Password | `/forgot-password` |
-| U5 | Reset Password | `/reset-password/:token` |
+| U1 | Login (entry point) | `/` and `/login` |
+| U2 | Register | `/register` |
+| U3 | Forgot Password | `/forgot-password` |
+| U4 | Reset Password | `/reset-password/:token` |
+
+> **No landing page.** The login screen is the front door and introduces the app directly.
 
 ### Authenticated Screens (within sidebar layout)
 
@@ -91,90 +92,89 @@ The **Main Content** area (Zone C) switches between distinct view modes:
 
 ## 3. Screen-by-Screen Specifications
 
-### U1 — Landing Page
+### U1 — Login (App Entry Point)
 
-**Purpose:** Convert visitors into registered users.
+The login page **is** the introduction to the app. No separate landing page.
+
+**Layout: 50/50 horizontal split**
 
 ```
-┌─────────────────────────────────────────┐
-│  [Logo]  Chatty          [Login] [Sign Up]│
-├─────────────────────────────────────────┤
-│                                         │
-│   Talk, hang out, and have fun.         │
-│   Your rooms. Your people.              │
-│                                         │
-│         [Open Chatty in Browser]        │
-│                                         │
-├─────────────────────────────────────────┤
-│   Feature cards (3):                    │
-│   - Text rooms with reactions           │
-│   - Voice & video rooms                 │
-│   - Organized servers & communities     │
-│                                         │
-├─────────────────────────────────────────┤
-│   Footer: links, copyright              │
-└─────────────────────────────────────────┘
+┌──────────────────────┬──────────────────────┐
+│                      │                      │
+│                      │  [Logo]              │
+│   Hero illustration  │  Welcome to Chatty   │
+│   (auth-hero.png)    │  Your rooms. Your    │
+│                      │  people. Chat, call, │
+│   object-cover       │  and hang out...     │
+│   object-left        │                      │
+│                      │  USERNAME            │
+│                      │  [________________]  │
+│                      │                      │
+│                      │  PASSWORD            │
+│                      │  [________________]  │
+│                      │                      │
+│                      │  [Log In]            │
+│                      │                      │
+│                      │  New here? Sign up   │
+└──────────────────────┴──────────────────────┘
 ```
 
 **Key decisions:**
-- Minimal — one CTA above the fold
-- No interactive demo; just feature highlights
-- Dark or light based on system preference
-
----
-
-### U2 — Login
-
-```
-┌──────────────────────────────────┐
-│         [Logo]                   │
-│     Welcome back!                │
-│                                  │
-│   Email      [________________]  │
-│   Password   [________________]  │
-│              [Forgot password?]  │
-│                                  │
-│         [Log In]                 │
-│                                  │
-│   Don't have an account? [Sign up]│
-└──────────────────────────────────┘
-```
+- Left half: anime-style hero image (purple night sky, fits brand palette)
+- Right half: form with app introduction copy — serves as both welcome and login
+- No back button (this is the root page)
+- Mobile: image hides, form takes full width
 
 **Behavior:**
-- Inline validation (email format, password minimum 8 chars)
-- Error toast on invalid credentials
+- Inline validation (username required, password minimum 8 chars)
+- Inline error message on invalid credentials (not toast)
 - Redirect to `/home` on success
 - "Log In" button shows spinner while request is in-flight
 
 ---
 
-### U3 — Register
+### U2 — Register
+
+Same 50/50 split layout as login, shared hero image.
 
 ```
-┌──────────────────────────────────┐
-│         [Logo]                   │
-│     Create an account            │
-│                                  │
-│   Username   [________________]  │
-│   Email      [________________]  │
-│   Password   [________________]  │
-│   Confirm    [________________]  │
-│                                  │
-│         [Sign Up]                │
-│                                  │
-│   Already have an account? [Log in]│
-└──────────────────────────────────┘
+┌──────────────────────┬──────────────────────┐
+│                      │  [← Back]            │
+│                      │                      │
+│   Hero illustration  │  [Logo]              │
+│   (auth-hero.png)    │  Create an account   │
+│                      │  Join Chatty and     │
+│                      │  start chatting      │
+│                      │                      │
+│                      │  USERNAME            │
+│                      │  [________________]  │
+│                      │  EMAIL               │
+│                      │  [________________]  │
+│                      │  PASSWORD            │
+│                      │  [________________]  │
+│                      │  [===] Fair          │
+│                      │  CONFIRM PASSWORD    │
+│                      │  [________________]  │
+│                      │                      │
+│                      │  [Sign Up]           │
+│                      │                      │
+│                      │  Have an account?    │
+│                      │  Log in              │
+└──────────────────────┴──────────────────────┘
 ```
+
+**Key decisions:**
+- Back button (top-left of form side) → returns to `/login`
+- Password strength bar (red/amber/green) with label
 
 **Behavior:**
-- Real-time validation: username availability check (debounced 500ms)
-- Password strength indicator (weak / fair / strong)
-- Password match validation
+- Real-time validation: password strength indicator (weak / fair / strong)
+- Live "Passwords do not match" feedback below confirm field
 - On success: auto-login and redirect to `/home`
 
 ---
 
-### U4 / U5 — Forgot / Reset Password
+### U3 / U4 — Forgot / Reset Password
 
 Standard email-based flow. Not a priority for MVP but routes should be reserved.
 
@@ -563,8 +563,7 @@ App
 ├── AuthGuard (redirect unauthenticated users)
 │
 ├── [Unauthenticated Routes]
-│   ├── LandingPage
-│   ├── LoginPage
+│   ├── LoginPage (also serves `/`, the app entry point)
 │   ├── RegisterPage
 │   └── ForgotPasswordPage
 │
@@ -587,7 +586,7 @@ App
         │   └── UserPanel
         │       ├── Avatar
         │       ├── StatusText
-        │       └── QuickActions (mic, deafen, settings)
+        │       └── QuickActions (mic, deafen, settings, sign out)
         │
         ├── MainContent (switches by view mode)
         │   │
@@ -660,10 +659,9 @@ Global Overlays (portaled)
 
 | Component | Status | Notes |
 |-----------|--------|-------|
-| AuthGuard | New | Route protection HOC |
-| LoginPage / RegisterPage | New | Full auth forms |
-| LandingPage | New | Marketing page |
-| Router setup | New | React Router v7 with nested routes |
+| AuthGuard | Done | Route protection wrapper |
+| LoginPage / RegisterPage | Done | 50/50 split layout with hero image |
+| Router setup | Done | React Router v7 with nested routes |
 | DMSidebar | New | Variant of RoomsSidebar for Home view |
 | HomeView / FriendList | New | Friends management |
 | VoiceView | New | Voice/video room UI |
@@ -693,8 +691,8 @@ Global Overlays (portaled)
 ### Flow 1: First-Time User
 
 ```
-Landing Page → Register → Auto-login
-→ Home (empty friends list, no servers)
+Login page (app entry) → "New here? Create an account"
+→ Register → Auto-login → Home (empty friends list, no servers)
 → Prompt: "Create your first server" or "Join with invite"
 → Create Server modal → enters name, picks emoji + color
 → Lands in new server's #general room
@@ -704,7 +702,7 @@ Landing Page → Register → Auto-login
 ### Flow 2: Returning User
 
 ```
-Login → Home (last visited server remembered)
+Login page (app entry) → enter credentials → Home
 → Navigate servers via Server Bar
 → Select room → Chat / Voice
 ```
@@ -759,6 +757,18 @@ Hover message → action bar appears
 
 ## 6. Design System
 
+### Design Principles
+
+1. **No cards.** Never display information in bordered/shadowed card containers. Cards feel like traditional AI-generated UI. Use open layouts with emoji, spacing, and typography to create visual hierarchy.
+2. **Playful, not corporate.** Headings use a bubbly rounded font (Baloo 2). Inputs are oversized and dramatically rounded. The overall feel should be fun and inviting.
+3. **Freedom to exit.** Users should always be able to go back. Auth pages have back navigation; modals have clear close actions.
+4. **Purple glow.** Interactive elements (inputs, focus states) use a subtle purple glow to tie into the brand palette.
+5. **Generous spacing.** UI elements breathe — forms use 1.75x spacing, inputs are wider than strictly needed, and content has room to sit.
+
+### Logo
+
+Two purple dots — minimalist and abstract. The larger dot (`#8B5CF6`, r=10) and smaller dot (`#7C3AED` at 65% opacity, r=7) are offset diagonally, suggesting two people in conversation. No background, no borders.
+
 ### Color Tokens
 
 ```
@@ -804,11 +814,13 @@ muted:            #9CA3AF
 | Body Bold | DM Sans | 600 | 14px |
 | Small | DM Sans | 400 | 12px |
 | Caption | DM Sans | 500 | 11px / uppercase / tracking-wide |
-| H1 (page) | Fraunces | 700 | 28px |
-| H2 (section) | Fraunces | 600 | 20px |
-| H3 (card) | DM Sans | 600 | 16px |
+| H1 (page) | Baloo 2 | 700 | 28px |
+| H2 (section) | Baloo 2 | 600 | 20px |
+| H3 (subsection) | DM Sans | 600 | 16px |
 | Username | DM Sans | 600 | 14px |
 | Timestamp | DM Sans | 400 | 12px / muted color |
+
+> **Heading font: Baloo 2** — a rounded, bubbly display font. Headings should feel playful and soft, not sharp or formal. Replaced Fraunces (serif) to match the app's personality.
 
 ### Spacing Scale
 
@@ -819,10 +831,22 @@ Follows Tailwind's 4px base: `4, 8, 12, 16, 20, 24, 32, 40, 48, 64`
 | Token | Value | Use |
 |-------|-------|-----|
 | `radius-sm` | 6px | Badges, small buttons |
-| `radius-md` | 8px | Inputs, cards |
+| `radius-md` | 8px | Buttons, small containers |
 | `radius-lg` | 10px | Modals, panels |
-| `radius-xl` | 12px | Large cards |
+| `radius-xl` | 12px | General containers |
+| `radius-2xl` | 16px | Text inputs (dramatic rounding) |
 | `radius-full` | 9999px | Avatars, pills |
+
+### Text Inputs
+
+Inputs are intentionally oversized and dramatically rounded to feel playful:
+- Height: `h-12` (48px) — taller than typical
+- Border radius: `rounded-2xl` (16px) — near-pill shape
+- Padding: `px-5 py-3` — generous internal spacing
+- Font size: `text-base` (16px) — larger than body
+- Border: light purple hue (`border-primary-light/30`)
+- Glow: subtle purple box-shadow at rest, intensifies on focus
+- Form spacing: `gap-7` (28px) between fields — 1.75x standard
 
 ### Shadows
 
@@ -1049,16 +1073,16 @@ sendMessage(text) → immediately add to local state with pending status
 
 ## 12. Implementation Phases
 
-### Phase 1 — Auth & Routing Foundation
+### Phase 1 — Auth & Routing Foundation ✓
 > Get users in and out of the app with proper route protection.
 
-- [ ] Install React Router v7, define route structure
-- [ ] Build LoginPage and RegisterPage with form validation
-- [ ] Build AuthGuard wrapper (redirect to `/login` if no token)
-- [ ] Create auth-store (login, logout, token persistence in localStorage)
-- [ ] Connect to backend auth endpoints
-- [ ] Add loading screen for initial auth check
-- [ ] Wire up the LandingPage at `/`
+- [x] Install React Router v7, define route structure
+- [x] Build LoginPage and RegisterPage (50/50 split with hero image)
+- [x] Build AuthGuard wrapper (redirect to `/login` if no token)
+- [x] Create auth-store (login, logout, token persistence in localStorage)
+- [x] Connect to backend auth endpoints
+- [x] Add loading screen for initial auth check
+- [x] Login page serves as app entry point (no separate landing page)
 
 ### Phase 2 — Server & Room Navigation (Live Data)
 > Replace mock data with real API calls.
@@ -1162,15 +1186,14 @@ front-end/app/src/
 ├── App.tsx                     ← Router setup
 ├── index.css                   ← Theme tokens, global styles
 │
-├── routes/
-│   ├── index.tsx               ← Landing page
-│   ├── login.tsx
-│   ├── register.tsx
-│   ├── home.tsx                ← Home / Friends / DMs
-│   ├── server.tsx              ← Server layout (rooms sidebar + outlet)
-│   ├── room.tsx                ← Text or voice room
-│   ├── server-settings.tsx
-│   └── user-settings.tsx
+├── pages/
+│   ├── LoginPage.tsx           ← App entry point (also `/`)
+│   ├── RegisterPage.tsx
+│   ├── HomePage.tsx            ← Home / Friends / DMs
+│   ├── ServerPage.tsx          ← Server layout (rooms sidebar + outlet)
+│   ├── RoomPage.tsx            ← Text or voice room
+│   ├── ServerSettingsPage.tsx
+│   └── UserSettingsPage.tsx
 │
 ├── components/
 │   ├── layout/
