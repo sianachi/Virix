@@ -34,7 +34,7 @@ async function request<T>(
     headers,
   })
 
-  if (response.status === 401) {
+  if (response.status === 401 && token) {
     localStorage.removeItem('token')
     window.location.href = '/login'
     throw new ApiError(401, { detail: 'Session expired' })
@@ -59,6 +59,13 @@ export const api = {
     request<T>(path, {
       method: 'POST',
       body: body != null ? JSON.stringify(body) : undefined,
+    }),
+
+  postForm: <T>(path: string, data: Record<string, string>) =>
+    request<T>(path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString(),
     }),
 
   patch: <T>(path: string, body: unknown) =>
