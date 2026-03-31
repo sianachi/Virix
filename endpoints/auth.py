@@ -72,3 +72,37 @@ def logout(
 ):
     auth_service.logout_user(token, session, current_user)
     return {"message": "Logged out successfully"}
+
+
+class ForgotPasswordRequest(BaseModel):
+    email: str
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str
+
+    @field_validator("new_password")
+    @classmethod
+    def password_min_length(cls, v: str) -> str:
+        if len(v) < 8:
+            raise ValueError("Password must be at least 8 characters")
+        return v
+
+
+@router.post("/forgot-password")
+@limiter.limit(RATE_LIMIT_AUTH)
+def forgot_password(request: Request, body: ForgotPasswordRequest, session: Session = Depends(get_session)):
+    auth_service.request_password_reset(session, body.email)
+    # Always return success to avoid revealing whether the email exists
+    return {"message": "If that email is registered, a recovery link has been sent"}
+
+
+@router.post("/reset-password")
+@limiter.limit(RATE_LIMIT_AUTH)
+def reset_password(request: Request, body: ResetPasswordRequest, session: Session = Depends(get_session)):
+    try:
+        auth_service.reset_password(session, body.token, body.new_password)
+        return {"message": "Password reset successfully"}
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
