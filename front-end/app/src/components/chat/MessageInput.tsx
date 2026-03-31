@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { cn } from '../../lib/cn'
-import { PlusCircle, Gift, Paperclip, Smile } from 'lucide-react'
+import { PlusCircle, Paperclip, Smile } from 'lucide-react'
 import Tooltip from '../ui/Tooltip'
 import EmojiPickerPopover from '../ui/EmojiPickerPopover'
 
@@ -35,11 +35,6 @@ export default function MessageInput({ roomName = 'general' }: MessageInputProps
         />
 
         <div className="flex items-center gap-1 shrink-0">
-          <Tooltip content="Send gift" side="top">
-            <button className="h-8 w-8 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-surface-alt transition-colors cursor-pointer">
-              <Gift className="h-4.5 w-4.5" />
-            </button>
-          </Tooltip>
           <Tooltip content="Attach file" side="top">
             <button className="h-8 w-8 flex items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-surface-alt transition-colors cursor-pointer">
               <Paperclip className="h-4.5 w-4.5" />

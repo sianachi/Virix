@@ -8,8 +8,8 @@ interface AppState {
 }
 
 export const useAppStore = create<AppState>((set) => ({
-  activeServer: 's1',
-  activeRoom: 'general',
+  activeServer: 'home',
+  activeRoom: '',
   setActiveServer: (id) => set({ activeServer: id }),
   setActiveRoom: (id) => set({ activeRoom: id }),
 }))

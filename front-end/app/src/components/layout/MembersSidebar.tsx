@@ -51,8 +51,20 @@ export default function MembersSidebar() {
       </div>
 
       <div className="flex-1 overflow-y-auto py-3 px-2">
-        <MemberSection title="Online" count={online.length} members={online} />
-        <MemberSection title="Offline" count={offline.length} members={offline} isOffline />
+        {members.length > 0 ? (
+          <>
+            {online.length > 0 && (
+              <MemberSection title="Online" count={online.length} members={online} />
+            )}
+            {offline.length > 0 && (
+              <MemberSection title="Offline" count={offline.length} members={offline} isOffline />
+            )}
+          </>
+        ) : (
+          <p className="px-2 py-4 text-xs text-muted-foreground text-center">
+            No members yet
+          </p>
+        )}
       </div>
     </div>
   )

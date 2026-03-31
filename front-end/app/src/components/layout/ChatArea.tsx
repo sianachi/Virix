@@ -39,12 +39,18 @@ export default function ChatArea() {
           <div className="h-7 w-7 rounded-md bg-primary/10 flex items-center justify-center">
             <MessageSquare className="h-4 w-4 text-primary" />
           </div>
-          <span className="font-semibold text-[15px] text-foreground">{activeRoom}</span>
+          <span className="font-semibold text-[15px] text-foreground">
+            {activeRoom || 'Welcome'}
+          </span>
         </div>
-        <Separator orientation="vertical" className="h-5" />
-        <span className="text-sm text-muted-foreground truncate">
-          Chat about anything — keep it friendly!
-        </span>
+        {activeRoom && (
+          <>
+            <Separator orientation="vertical" className="h-5" />
+            <span className="text-sm text-muted-foreground truncate">
+              Chat about anything — keep it friendly!
+            </span>
+          </>
+        )}
 
         <div className="ml-auto flex items-center gap-0.5 shrink-0">
           {toolbarActions.map(({ icon: Icon, label }) => (
@@ -59,13 +65,20 @@ export default function ChatArea() {
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto py-4 space-y-1">
-        {messages.map((msg) => (
-          <Message key={msg.id} {...msg} />
-        ))}
+        {messages.length > 0 ? (
+          messages.map((msg) => (
+            <Message key={msg.id} {...msg} />
+          ))
+        ) : (
+          <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+            <span className="text-4xl mb-3">💬</span>
+            <p className="text-sm">No messages yet. Start the conversation!</p>
+          </div>
+        )}
       </div>
 
       {/* Typing indicator */}
-      <TypingIndicator users={typingUsers} />
+      {typingUsers.length > 0 && <TypingIndicator users={typingUsers} />}
 
       {/* Input */}
       <MessageInput roomName={`#${activeRoom}`} />
